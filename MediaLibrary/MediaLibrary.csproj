@@ -46,6 +46,7 @@
     <Compile Include="Interfaces\ILink.cs" />
     <Compile Include="Interfaces\INode.cs" />
     <Compile Include="Node.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestClass.cs" />
   </ItemGroup>
