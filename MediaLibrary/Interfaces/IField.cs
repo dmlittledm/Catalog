@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using Catalog;
 
 namespace MediaLibrary.Interfaces
 {
@@ -7,13 +6,12 @@ namespace MediaLibrary.Interfaces
     /// </summary>
     public interface IField: INotifyPropertyChanged
     {
-        string Name { get; }
-
-        object Value { get; }
-
-        int? SortOrder { get; }
-
-        FieldTypes FieldType { get; }
+        /// <summary> Тип поля 
+        /// </summary>
+        IFieldType FieldType { get; set; }
+        /// <summary> значение поля 
+        /// </summary>
+        object Value { get; set; }
     }
 
     /// <summary> контроллер поля  
@@ -25,10 +23,8 @@ namespace MediaLibrary.Interfaces
         /// <param name="name"></param>
         /// <param name="value"></param>
         /// <param name="sortOrder">порядок отображения (null - оставить без изменений)</param>
-        void Update(string name, object value, int? sortOrder = null);
+        void Update(string name, object value);
 
         bool IsDirty { get; }
-
-        void SetSortOrder(int? sortOrder);
     }
 }

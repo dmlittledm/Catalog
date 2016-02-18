@@ -15,8 +15,8 @@ namespace MediaLibrary
             
             Dictionary<Guid, INode> dictionary = new Dictionary<Guid, INode>();
 
-            (new List<INode>()).AsQueryable()
-            
+            (new List<INode>()).AsQueryable();
+
 
         }
 
