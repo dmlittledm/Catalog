@@ -22,7 +22,6 @@ namespace MediaLibrary.Interfaces
         /// </summary>
         /// <param name="name"></param>
         /// <param name="value"></param>
-        /// <param name="sortOrder">порядок отображения (null - оставить без изменений)</param>
         void Update(string name, object value);
 
         bool IsDirty { get; }

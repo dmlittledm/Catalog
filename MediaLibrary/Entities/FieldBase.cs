@@ -10,8 +10,9 @@ using MediaLibrary.Interfaces;
 
 namespace MediaLibrary.Entities
 {
-    public class TextField : IField
+    public abstract class FieldBase : IField
     {
+        private object _value;
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
@@ -21,6 +22,18 @@ namespace MediaLibrary.Entities
         }
 
         public IFieldType FieldType { get; set; }
-        public object Value { get; set; }
+
+        public object Value
+        {
+            get { return _value; }
+            set
+            {
+                if (!_value.Equals(value))
+                {
+                    _value = value;
+                    OnPropertyChanged(FieldType.Name);
+                }
+            }
+        }
     }
 }

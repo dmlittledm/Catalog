@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{25414431-23CC-4CB3-B2E2-CABDDFF5596E}</ProjectGuid>
+    <ProjectGuid>{95E13397-E70B-4421-853F-106A2DCF262B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MediaLibrary</RootNamespace>
-    <AssemblyName>MediaLibrary</AssemblyName>
+    <RootNamespace>Data</RootNamespace>
+    <AssemblyName>Data</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,7 +32,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,21 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\FieldBase.cs" />
-    <Compile Include="Entities\Field.cs" />
-    <Compile Include="Entities\FieldType.cs" />
-    <Compile Include="Enums.cs" />
-    <Compile Include="Interfaces\IField.cs" />
-    <Compile Include="Interfaces\IFieldType.cs" />
-    <Compile Include="Interfaces\ILink.cs" />
-    <Compile Include="Interfaces\IMediaLibraryController.cs" />
-    <Compile Include="Interfaces\INode.cs" />
-    <Compile Include="Entities\Node.cs" />
-    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="HardcodedCatalogs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestClass.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\MediaLibrary\MediaLibrary.csproj">
+      <Project>{25414431-23CC-4CB3-B2E2-CABDDFF5596E}</Project>
+      <Name>MediaLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
