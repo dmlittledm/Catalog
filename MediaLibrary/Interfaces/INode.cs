@@ -4,22 +4,12 @@ using System.ComponentModel;
 
 namespace MediaLibrary.Interfaces
 {
-    public interface INode: INotifyPropertyChanged
+    /// <summary> Раздел 
+    /// </summary>
+    public interface INode: IResource, INotifyPropertyChanged
     {
-        /// <summary> Id 
+        /// <summary> Child nodes 
         /// </summary>
-        Guid Id { get; }
-
-        // moved to Fields
-        ///// <summary> Name 
-        ///// </summary>
-        //string Name { get; }
-        ///// <summary> Description 
-        ///// </summary>
-        //string Description { get; }
-
-        IEnumerable<IField> Fields { get; }
-
         IEnumerable<INode> Childs { get; }
 
         bool HasChilds { get; }
@@ -32,24 +22,29 @@ namespace MediaLibrary.Interfaces
         /// </summary>
         INode Root { get; }
 
-        // moved to Fields
-        ///// <summary> Links to other resources 
-        ///// </summary>
-        //IEnumerable<ILink> Links { get; }
-
-        /// <summary> all descendand nodes 
+        /// <summary> all descendant nodes 
         /// </summary>
         IEnumerable<INode> Descendants(Guid? id = null);
 
+        /// <summary> all descendant nodes inculuding this self 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         IEnumerable<INode> DescendantsAndSelf(Guid? id = null);
     }
 
-    public interface INodeController : INode
+    /// <summary> Интерфейс управления разделом 
+    /// </summary>
+    public interface INodeController : INode, IResourceController
     {
+        /// <summary> Add child node 
+        /// </summary>
+        /// <param name="node"></param>
+        void AddChild(INode node);
 
-        void AddField(IField item);
-        void RemoveField(IField item);
-        void ClearFields();
-        
+        /// <summary> Remove child node 
+        /// </summary>
+        /// <param name="id"></param>
+        void RemoveChild(Guid id);
     }
 }
