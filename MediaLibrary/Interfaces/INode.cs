@@ -46,5 +46,10 @@ namespace MediaLibrary.Interfaces
         /// </summary>
         /// <param name="id"></param>
         void RemoveChild(Guid id);
+
+        /// <summary> Remove child node 
+        /// </summary>
+        /// <param name="node"></param>
+        void RemoveChild(INode node); 
     }
 }

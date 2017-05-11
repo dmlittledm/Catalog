@@ -28,6 +28,11 @@ namespace MediaLibrary.Interfaces
         /// <param name="id"></param>
         void Remove(Guid id);
 
+        /// <summary> удалить элемент 
+        /// </summary>
+        /// <param name="resource"></param>
+        void Remove(IResource resource);
+
         /// <summary> Добавить поле в список полей справочника
         /// </summary>
         /// <param name="fieldType"></param>
