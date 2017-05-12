@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using MediaLibrary.Interfaces;
 
 namespace MediaLibrary.Entities
@@ -7,17 +10,20 @@ namespace MediaLibrary.Entities
     /// </summary>
     public class Directory: IDirectory
     {
-        protected readonly IList<IResource> _items = new List<IResource>();
-        protected readonly IList<IFieldType> _fieldTypes = new List<IFieldType>();
+        protected IList<IResource> ItemsInternal { get; set; }
 
-        public IEnumerable<IResource> Items
-        {
-            get { return _items; }
-        }
+        protected IList<IFieldType> FieldTypesInternal { get; }
 
-        public IEnumerable<IFieldType> FieldTypes
+
+        public IEnumerable<IResource> Items => ItemsInternal;
+
+        public IEnumerable<IFieldType> FieldTypes => FieldTypesInternal;
+
+
+        public Directory()
         {
-            get { return _fieldTypes; }
+            ItemsInternal = new List<IResource>();
+            FieldTypesInternal = new List<IFieldType>();
         }
     }
 }

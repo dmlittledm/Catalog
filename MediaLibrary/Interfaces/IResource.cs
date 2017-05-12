@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using MediaLibrary.Annotations;
 
 namespace MediaLibrary.Interfaces
 {
@@ -21,10 +22,10 @@ namespace MediaLibrary.Interfaces
     /// </summary>
     public interface IResourceController : IResource
     {
+        void AddField([NotNull] IField item);
 
-        void AddField(IField item);
-        void RemoveField(IField item);
+        void RemoveField([NotNull] IField item);
+
         void ClearFields();
-        
     }
 }

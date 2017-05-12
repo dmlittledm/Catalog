@@ -20,9 +20,14 @@ namespace MediaLibrary.Interfaces
     {
         /// <summary> изменение значений
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="value"></param>
+        /// <param name="name">название поля</param>
+        /// <param name="value">значение</param>
         void Update(string name, object value);
+        
+        /// <summary> изменение значений 
+        /// </summary>
+        /// <param name="value">значение</param>
+        void Update(object value);
 
         bool IsDirty { get; }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using MediaLibrary.Entities;
+using MediaLibrary.Infrastructure;
 using MediaLibrary.Interfaces;
 
 namespace MediaLibrary.Controllers
@@ -9,29 +10,39 @@ namespace MediaLibrary.Controllers
     {
         public void Add(IResource resource)
         {
-            _items.Add(resource);
+            if(resource == null)
+                throw new ArgumentNullException(nameof(resource));
+
+            if (Items.Any(x => x.Id == resource.Id))
+                throw new ArgumentException(
+                    string.Format(Messages.Directory.AlreadyContainsResourceWithIdXxx, resource.Id));
+
+            ItemsInternal.Add(resource);
         }
 
         public void Remove(Guid id)
         {
-            var resource = _items.FirstOrDefault(x => x.Id == id);
+            var resource = ItemsInternal.FirstOrDefault(x => x.Id == id);
             if (resource != null)
-                _items.Remove(resource);
+                ItemsInternal.Remove(resource);
         }
 
         public void Remove(IResource resource)
         {
-            _items.Remove(resource);
+            ItemsInternal.Remove(resource);
         }
 
         public void AddFieldType(IFieldType fieldType)
         {
-            _fieldTypes.Add(fieldType);
+            if(FieldTypes.Any(x => x.Name == fieldType.Name))
+                throw new ArgumentException(string.Format(Messages.Directory.AlreadyContainsFieldTypeWithNameXxx, fieldType.Name));
+
+            FieldTypesInternal.Add(fieldType);
         }
 
         public void RemoveFieldType(IFieldType fieldType)
         {
-            _fieldTypes.Remove(fieldType);
+            FieldTypesInternal.Remove(fieldType);
         }
     }
 }

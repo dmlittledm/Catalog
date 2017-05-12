@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using MediaLibrary.Annotations;
 using MediaLibrary.Interfaces;
@@ -11,15 +12,22 @@ namespace MediaLibrary.Entities
     /// </summary>
     public class Resource : IResource
     {
-
         public Guid Id { get; }
         
-        protected Resource()
+        public Resource()
         {
             Id = Guid.NewGuid();
+            FieldsInternal = new List<IField>();
         }
 
-        public IEnumerable<IField> Fields { get; protected set; } = new List<IField>();
+        public IEnumerable<IField> Fields => FieldsInternal;
+
+        public Expression<Func<IResource, bool>> ResourseIdIs(Guid id)
+        {
+            return x => x.Id == Id;
+        }
+
+        protected IList<IField> FieldsInternal { get; set; }
 
         #region PropertyChanged
 

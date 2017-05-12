@@ -42,12 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\DirectoryController.cs" />
+    <Compile Include="Controllers\ResourceController.cs" />
     <Compile Include="Entities\Directory.cs" />
     <Compile Include="Entities\FieldBase.cs" />
     <Compile Include="Entities\Field.cs" />
     <Compile Include="Entities\FieldType.cs" />
     <Compile Include="Entities\Resource.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="Infrastructure\Messages.cs" />
     <Compile Include="Interfaces\IField.cs" />
     <Compile Include="Interfaces\IFieldType.cs" />
     <Compile Include="Interfaces\ILink.cs" />
