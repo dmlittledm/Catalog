@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MediaLibrary.Infrastructure;
 using MediaLibrary.Interfaces;
 
 namespace MediaLibrary.Entities
@@ -11,13 +12,18 @@ namespace MediaLibrary.Entities
     {
         public bool HasChilds => Childs.Any();
 
+        public bool HasParent => Parent != null;
+
         public IEnumerable<INode> Childs { get; protected set; }
 
+        protected IList<INode> ChildsInternal { get; set; }
+
         public INode Parent { get; protected set; }
+
         public INode Root => Parent?.Root ?? this;
 
         // TODO: look at XDocument's Descendants realization - m.b. better to apply filters instead of just take all the data
-        public IEnumerable<INode> Descendants(Func<IResource, bool> predicate = null)
+        public IEnumerable<INode> Descendants(Func<INode, bool> predicate = null)
         {
             return GetDescendants(false, predicate);
             // NOTE: here is no protection from cycle loop
@@ -30,27 +36,61 @@ namespace MediaLibrary.Entities
             //doc.Descendants().o
         }
 
-        public IEnumerable<INode> DescendantsAndSelf(Func<IResource, bool> predicate = null)
+        public IEnumerable<INode> DescendantsAndSelf(Func<INode, bool> predicate = null)
         {
             return GetDescendants(true, predicate);
         }
 
+        public void SetParent(INode parent)
+        {
+            if(parent == null)
+                throw new ArgumentNullException(nameof(parent));
+
+            if (!parent.Childs.Contains(this))
+                throw new InvalidOperationException(Messages.Node.CantSetParent + " " + Messages.Node.ParentDoesntContainsThisNode);
+
+            Parent = parent;
+        }
+
+        public void ClearParent()
+        {
+            if(Parent?.Childs.Contains(this) ?? false)
+                throw new InvalidOperationException(Messages.Node.CantClearParent + " " + Messages.Node.ParentContainsThisNode);
+
+            Parent = null;
+        }
+
         public void AddChild(INode node)
         {
-            throw new NotImplementedException();
+            if (node == null)
+                throw new ArgumentNullException(nameof(node));
+
+            if(Childs.Any(x => x.Id == node.Id))
+                throw new ArgumentException(string.Format(Messages.Node.AlreadyContainsNodeWithIdXxx, node.Id));
+
+            ChildsInternal.Add(node);
+            node.SetParent(this);
         }
 
         public void RemoveChild(Guid id)
         {
-            throw new NotImplementedException();
+            var node = Childs.FirstOrDefault(x => x.Id == id);
+            if (node == null)
+                return;
+
+            RemoveChild(node);
         }
 
         public void RemoveChild(INode node)
         {
-            throw new NotImplementedException();
+            if (node == null)
+                return;
+
+            ChildsInternal.Remove(node);
+            node.SetParent(null);
         }
 
-        internal IEnumerable<INode> GetDescendants(bool self, Func<IResource, bool> predicate = null)
+        internal IEnumerable<INode> GetDescendants(bool self, Func<INode, bool> predicate = null)
         {
             INode n = this;
             if (self)

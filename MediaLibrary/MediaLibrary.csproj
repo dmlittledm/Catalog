@@ -48,6 +48,7 @@
     <Compile Include="Entities\Resource.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Infrastructure\Messages.cs" />
+    <Compile Include="Infrastructure\Tools.cs" />
     <Compile Include="Interfaces\IField.cs" />
     <Compile Include="Interfaces\IFieldType.cs" />
     <Compile Include="Interfaces\ILibrary.cs" />

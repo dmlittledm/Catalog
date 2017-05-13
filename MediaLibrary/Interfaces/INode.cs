@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using MediaLibrary.Annotations;
 
 namespace MediaLibrary.Interfaces
 {
@@ -14,6 +15,8 @@ namespace MediaLibrary.Interfaces
 
         bool HasChilds { get; }
 
+        bool HasParent { get; }
+
         /// <summary> parent node 
         /// </summary>
         INode Parent { get; }
@@ -24,27 +27,36 @@ namespace MediaLibrary.Interfaces
 
         /// <summary> all descendant nodes 
         /// </summary>
-        IEnumerable<INode> Descendants(Func<IResource, bool> predicate = null);
+        IEnumerable<INode> Descendants(Func<INode, bool> predicate = null);
 
         /// <summary> all descendant nodes inculuding this self 
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        IEnumerable<INode> DescendantsAndSelf(Func<IResource, bool> predicate = null);
+        IEnumerable<INode> DescendantsAndSelf(Func<INode, bool> predicate = null);
+
+        /// <summary> Set another parent node 
+        /// </summary>
+        /// <param name="parent"></param>
+        void SetParent([NotNull] INode parent);
+
+        /// <summary> Set parent to null 
+        /// </summary>
+        void ClearParent();
 
         /// <summary> Add child node 
         /// </summary>
         /// <param name="node"></param>
-        void AddChild(INode node);
+        void AddChild([NotNull] INode node);
 
         /// <summary> Remove child node 
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">id удаляемого узла</param>
         void RemoveChild(Guid id);
 
         /// <summary> Remove child node 
         /// </summary>
-        /// <param name="node"></param>
+        /// <param name="node">удаляемый узел</param>
         void RemoveChild(INode node);
     }
 }

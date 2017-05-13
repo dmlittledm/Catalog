@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MediaLibrary.Infrastructure;
 using MediaLibrary.Interfaces;
+using static MediaLibrary.Infrastructure.Tools;
 
 namespace MediaLibrary.Entities
 {
@@ -49,56 +50,41 @@ namespace MediaLibrary.Entities
             NodesInternal.Add(node);
         }
 
-        public void RemoveNode(Guid id)
+        public void RemoveNode(Guid id, bool removeLinks = true)
         {
-            // TODO: apply Descendants method in Library to.
-            var node = Nodes.Select(x => x.DescendantsAndSelf().FirstOrDefault()).FirstOrDefault();
+            var node = Descendants(x => x.Id == id).FirstOrDefault();
 
-            // TODO: remove links to this resource and its descendants
             if (node != null)
                 NodesInternal.Remove(node);
         }
 
-        public void RemoveNode(INode node)
+        public void RemoveNode(INode node, bool removeLinks = true)
         {
             if(node == null)
                 return;
 
             if (Nodes.Contains(node))
-            {
-                // TODO: remove links to this resource and its descendants
                 NodesInternal.Remove(node);
-                return;
-            }
+            else
+                node.Parent?.RemoveChild(node);
 
-            var parent = NodesInternal.FirstOrDefault(x => x.Id == node.Id)?.Parent;
-
-            // TODO: remove links to this resource and its descendants
-            if (parent != null)
-                parent.RemoveChild(parent);
+            if (removeLinks)
+                RemoveLinks(Nodes, node, true);
         }
 
         public void MoveTo(INode source, INode target)
         {
-            throw new NotImplementedException();
+            if (source == null || target == null)
+                throw new ArgumentNullException(source == null ? nameof(source) : nameof(target));
+
+            RemoveNode(source, false);
+
+            target.AddChild(source);
         }
 
-        private void RemoveLinks(INode node)
+        public IEnumerable<INode> Descendants(Func<INode, bool> predicate)
         {
-            var ids = node.DescendantsAndSelf().Select(x => x.Id);
-
-            var linkedNodes = NodesInternal.Where(x => x.Id != node.Id)
-                .SelectMany(x =>
-                    x.DescendantsAndSelf()
-                        .Where(n => n.Id != node.Id
-                                    && n.Fields.Any(
-                                        field => field.FieldType.FieldDataType == FieldDataTypes.LinkToItem
-                                                 && (Guid) field.Value == Id)));
-
-            foreach (var link in linkedNodes)
-            {
-                
-            }
+            return Nodes.SelectMany(s => s.DescendantsAndSelf(predicate));
         }
     }
 }

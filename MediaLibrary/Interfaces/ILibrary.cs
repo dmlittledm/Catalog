@@ -46,17 +46,25 @@ namespace MediaLibrary.Interfaces
         /// <summary> remove item by id 
         /// </summary>
         /// <param name="id"></param>
-        void RemoveNode(Guid id);
+        /// <param name="removeLinks">удалять ли ссылки на этот узел и его наследников</param>
+        void RemoveNode(Guid id, bool removeLinks = true);
 
         /// <summary> remove item 
         /// </summary>
         /// <param name="node"></param>
-        void RemoveNode(INode node);
+        /// <param name="removeLinks">удалять ли ссылки на этот узел и его наследников</param>
+        void RemoveNode(INode node, bool removeLinks = true);
 
         /// <summary> Moves current node to another parent 
         /// </summary>
         /// <param name="source">node to be moved</param>
         /// <param name="target">node that became parent for source node</param>
         void MoveTo(INode source, INode target);
+
+        /// <summary>Получить список узлов-наследников 
+        /// </summary>
+        /// <param name="predicate">фильтр</param>
+        /// <returns></returns>
+        IEnumerable<INode> Descendants(Func<INode, bool> predicate);
     }
 }

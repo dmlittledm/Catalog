@@ -19,7 +19,7 @@ namespace MediaLibrary.Interfaces
 
         void AddField([NotNull] IField item);
 
-        void RemoveField([NotNull] IField item);
+        void RemoveField(IField item);
 
         void ClearFields();
     }
