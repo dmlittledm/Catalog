@@ -17,9 +17,9 @@ namespace MediaLibrary.Entities
         public INode Root => Parent?.Root ?? this;
 
         // TODO: look at XDocument's Descendants realization - m.b. better to apply filters instead of just take all the data
-        public IEnumerable<INode> Descendants(Guid? id = null)
+        public IEnumerable<INode> Descendants(Func<IResource, bool> predicate = null)
         {
-            return GetDescendants(false, id);
+            return GetDescendants(false, predicate);
             // NOTE: here is no protection from cycle loop
             //(new[] {this}).Union(
             //    Childs?.Where(w => ReferenceEquals(w.Parent, this)) // protection against usage from multi-parents
@@ -30,18 +30,35 @@ namespace MediaLibrary.Entities
             //doc.Descendants().o
         }
 
-        public IEnumerable<INode> DescendantsAndSelf(Guid? id = null)
+        public IEnumerable<INode> DescendantsAndSelf(Func<IResource, bool> predicate = null)
         {
-            return GetDescendants(true, id);
+            return GetDescendants(true, predicate);
         }
 
-        internal IEnumerable<INode> GetDescendants(bool self, Guid? id = null)
+        public void AddChild(INode node)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveChild(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveChild(INode node)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal IEnumerable<INode> GetDescendants(bool self, Func<IResource, bool> predicate = null)
         {
             INode n = this;
             if (self)
             {
-                if(id == null || n.Id == id.Value) yield return n;
+                if(predicate == null || predicate(this)) yield return n; // TODO: check if this works right and gives other descendants
+                // m.b. just put this at the end
             }
+
             while (true)
             {
                 foreach (var node in Childs)

@@ -14,10 +14,7 @@ namespace MediaLibrary.Interfaces
         /// <summary> Список полей справочника 
         /// </summary>
         IEnumerable<IFieldType> FieldTypes { get; }
-    }
 
-    public interface IDirectoryController
-    {
         /// <summary> Добавить элемент 
         /// </summary>
         /// <param name="resource"></param>
@@ -42,7 +39,5 @@ namespace MediaLibrary.Interfaces
         /// </summary>
         /// <param name="fieldType"></param>
         void RemoveFieldType(IFieldType fieldType);
-
-
     }
 }

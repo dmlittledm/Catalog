@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MediaLibrary.Interfaces;
 using System.Xml.Serialization;
 
 namespace MediaLibrary.Entities
 {
+    // WARNING: do not change field names after release.
+    // It may cause incompatibility with old version of saved data
+    // Or use hardcoded field names instead of nameof(...) before change.
+
     [Serializable]
     public class FieldType: IFieldType
     {

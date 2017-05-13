@@ -14,5 +14,10 @@
             public const string AlreadyContainsResourceWithIdXxx = "Справочник уже содержит ресурс с Id {0}.";
             public const string AlreadyContainsFieldTypeWithNameXxx = "Справочник уже содержит поле с именем {0}.";
         }
+
+        public static class Library
+        {
+            public const string AlreadyContainsNodeWithIdXxx = "Коллекция уже содержит узел с Id {0}.";
+        }
     }
 }

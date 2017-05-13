@@ -24,19 +24,14 @@ namespace MediaLibrary.Interfaces
 
         /// <summary> all descendant nodes 
         /// </summary>
-        IEnumerable<INode> Descendants(Guid? id = null);
+        IEnumerable<INode> Descendants(Func<IResource, bool> predicate = null);
 
         /// <summary> all descendant nodes inculuding this self 
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="predicate"></param>
         /// <returns></returns>
-        IEnumerable<INode> DescendantsAndSelf(Guid? id = null);
-    }
+        IEnumerable<INode> DescendantsAndSelf(Func<IResource, bool> predicate = null);
 
-    /// <summary> Интерфейс управления разделом 
-    /// </summary>
-    public interface INodeController : INode, IResourceController
-    {
         /// <summary> Add child node 
         /// </summary>
         /// <param name="node"></param>
@@ -50,6 +45,6 @@ namespace MediaLibrary.Interfaces
         /// <summary> Remove child node 
         /// </summary>
         /// <param name="node"></param>
-        void RemoveChild(INode node); 
+        void RemoveChild(INode node);
     }
 }
