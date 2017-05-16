@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using MediaLibrary.Interfaces;
 using System.Xml.Serialization;
 
@@ -46,5 +47,33 @@ namespace MediaLibrary.Entities
 
         [XmlElement(nameof(NullValueReplacement))]
         public object NullValueReplacement { get; set; }
+
+        public Type GetDataType()
+        {
+            switch (FieldDataType)
+            {
+                case FieldDataTypes.Text:
+                case FieldDataTypes.Hyperlink:
+                case FieldDataTypes.Path:
+                case FieldDataTypes.Notification:
+                    return typeof(string);
+                case FieldDataTypes.Image:
+                    return typeof(object);
+                case FieldDataTypes.DateTime:
+                    return typeof(DateTime);
+                case FieldDataTypes.LinkToItem:
+                    return typeof(Guid);
+                case FieldDataTypes.ItemOf:
+                    return typeof(Tuple<Guid, Guid>);
+                case FieldDataTypes.SetOfItems:
+                    return typeof(IEnumerable<Tuple<Guid, Guid>>);
+                case FieldDataTypes.Tags:
+                    return typeof(IEnumerable<string>);
+                case FieldDataTypes.Decimal:
+                    return typeof(decimal);
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(FieldDataType));
+            }
+        }
     }
 }

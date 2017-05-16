@@ -14,9 +14,9 @@ namespace MediaLibrary.Entities
 
         public bool HasParent => Parent != null;
 
-        public IEnumerable<INode> Childs { get; protected set; }
+        public IEnumerable<INode> Childs => ChildsInternal;
 
-        protected IList<INode> ChildsInternal { get; set; }
+        protected IList<INode> ChildsInternal { get; set; } = new List<INode>();
 
         public INode Parent { get; protected set; }
 

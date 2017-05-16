@@ -22,7 +22,7 @@
         //  помечать его цветом или значком.
         /// <summary> Уведомление 
         /// </summary>
-        Notification = 5, 
+        Notification = 5, // TODO: add some realization and corresponding datatype for it
         /// <summary> ссылка на другой элемент 
         /// </summary>
         LinkToItem = 6,
@@ -32,6 +32,12 @@
         /// <summary> Набор значений справочника
         /// </summary>
         SetOfItems = 8,
+        /// <summary> Список тегов 
+        /// </summary>
+        Tags = 9,
+        /// <summary> Числовое значение 
+        /// </summary>
+        Decimal = 10,
     }
 
     /// <summary> Роли полей, их значимость 

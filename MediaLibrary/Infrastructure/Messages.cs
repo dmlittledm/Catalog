@@ -7,6 +7,7 @@
         public static class Resource
         {
             public const string AlreadyContainsFieldWithNameXxx = "Ресурс уже содержит поле с именем {0}.";
+            public const string AlreadyContainsFieldWithSameName = "Ресурс уже содержит поле с таким именем.";
         }
 
         public static class Directory
@@ -29,6 +30,12 @@
 
             public const string ParentDoesntContainsThisNode = "Родитель не содержит этот узел.";
             public const string CantSetParent = "Нельзя установить ссылку на родителя.";
+        }
+
+        public static class Field
+        {
+            public const string FieldTypeMismatch = "Несоответствие типа данных.";
+            public const string MandatoryFieldValueCantBeNullOrEmpty = "Обязательное поле не может быть пустым.";
         }
     }
 }

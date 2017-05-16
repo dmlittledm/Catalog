@@ -1,6 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using MediaLibrary.Annotations;
+using MediaLibrary.Infrastructure;
 using MediaLibrary.Interfaces;
 
 namespace MediaLibrary.Entities
@@ -23,9 +25,7 @@ namespace MediaLibrary.Entities
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public IFieldType FieldType { get; }
+        public IFieldType FieldType { get; } // TODO: need to handle changes in this field to correlate with the Value
 
         public string Name => FieldType.Name;
 
@@ -34,20 +34,50 @@ namespace MediaLibrary.Entities
 
         public Field([NotNull] IFieldType fieldType, T value)
         {
+            if(fieldType == null)
+                throw new ArgumentNullException(nameof(fieldType));
+
+            if(typeof(T) != fieldType.GetDataType())
+                throw new ArgumentException(Messages.Field.FieldTypeMismatch, nameof(value));
+
             FieldType = fieldType;
+            CheckValue(value);
             _value = value;
         }
 
 
         public void Update(object value)
         {
+            CheckValue(value);
+
             Value = value;
         }
+
+        /// <summary> Проверить, что значение соответствует требованиям
+        /// </summary>
+        /// <param name="value"></param>
+        private void CheckValue(object value)
+        {
+            if (!FieldType.IsMandatory)
+                return;
+
+            if (value == null)
+                throw new ArgumentNullException(Messages.Field.MandatoryFieldValueCantBeNullOrEmpty);
+
+            var type = FieldType.GetDataType();
+            if (string.IsNullOrEmpty(value.ToString()) && !type.IsValueType)
+                throw new ArgumentNullException(Messages.Field.MandatoryFieldValueCantBeNullOrEmpty);
+        }
+
+
+        #region PropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        } 
+        #endregion
     }
 }

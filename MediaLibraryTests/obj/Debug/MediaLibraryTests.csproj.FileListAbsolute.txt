@@ -1,0 +1,9 @@
+D:\Projects\Catalog\MediaLibraryTests\bin\Debug\MediaLibraryTests.dll
+D:\Projects\Catalog\MediaLibraryTests\bin\Debug\MediaLibraryTests.pdb
+D:\Projects\Catalog\MediaLibraryTests\bin\Debug\MediaLibrary.dll
+D:\Projects\Catalog\MediaLibraryTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+D:\Projects\Catalog\MediaLibraryTests\bin\Debug\MediaLibrary.pdb
+D:\Projects\Catalog\MediaLibraryTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+D:\Projects\Catalog\MediaLibraryTests\obj\Debug\MediaLibraryTests.csprojResolveAssemblyReference.cache
+D:\Projects\Catalog\MediaLibraryTests\obj\Debug\MediaLibraryTests.dll
+D:\Projects\Catalog\MediaLibraryTests\obj\Debug\MediaLibraryTests.pdb

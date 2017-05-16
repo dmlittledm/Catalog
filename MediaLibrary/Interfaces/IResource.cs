@@ -19,6 +19,8 @@ namespace MediaLibrary.Interfaces
 
         void AddField([NotNull] IField item);
 
+        void AddFields(IEnumerable<IField> items);
+
         void RemoveField(IField item);
 
         void ClearFields();

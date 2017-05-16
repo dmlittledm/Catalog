@@ -58,5 +58,9 @@ namespace MediaLibrary.Interfaces
         /// </summary>
         object NullValueReplacement { get; set; }
 
+        /// <summary> Получить тип данных, соответствующий значению <see cref="FieldDataType"/>
+        /// </summary>
+        /// <returns></returns>
+        Type GetDataType();
     }
 }

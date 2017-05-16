@@ -48,10 +48,22 @@ namespace MediaLibrary.Entities
             if(item == null)
                 throw new ArgumentNullException(nameof(item));
 
-            if(FieldsInternal.Any(x => x.FieldType.Name == item.FieldType.Name))
+            if(Fields.Any(x => x.FieldType.Name == item.FieldType.Name))
                 throw new ArgumentException(string.Format(Messages.Resource.AlreadyContainsFieldWithNameXxx, item.FieldType.Name));
 
             FieldsInternal.Add(item);
+        }
+
+        public void AddFields(IEnumerable<IField> items)
+        {
+            if (items == null)
+                throw new ArgumentNullException(nameof(items));
+
+            if (Fields.Any(x => items.Select(s => s.Name).Contains(x.FieldType.Name)))
+                throw new ArgumentException(Messages.Resource.AlreadyContainsFieldWithSameName);
+
+            foreach (var field in items)
+                FieldsInternal.Add(field);
         }
 
         public void RemoveField(IField item)
