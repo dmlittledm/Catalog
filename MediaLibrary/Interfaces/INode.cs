@@ -25,6 +25,10 @@ namespace MediaLibrary.Interfaces
         /// </summary>
         INode Root { get; }
 
+        /// <summary> node name (if it is set in its fields list, null otherwise) 
+        /// </summary>
+        string Name { get; }
+
         /// <summary> all descendant nodes 
         /// </summary>
         IEnumerable<INode> Descendants(Func<INode, bool> predicate = null);

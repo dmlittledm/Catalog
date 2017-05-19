@@ -22,7 +22,8 @@ namespace MediaLibrary.Entities
 
         public INode Root => Parent?.Root ?? this;
 
-        // TODO: look at XDocument's Descendants realization - m.b. better to apply filters instead of just take all the data
+        public string Name => Fields.FirstOrDefault(x => x.FieldType.Role == FieldRoles.Name)?.Value.ToString();
+
         public IEnumerable<INode> Descendants(Func<INode, bool> predicate = null)
         {
             return GetDescendants(false, predicate);
@@ -99,12 +100,11 @@ namespace MediaLibrary.Entities
                 // m.b. just put this at the end
             }
 
-            while (true)
+            foreach (var node in Childs)
             {
-                foreach (var node in Childs)
-                {
-                    yield return node;
-                }
+                var subChilds = node.DescendantsAndSelf(predicate);
+                foreach (var child in subChilds)
+                    yield return child;
             }
         }
     }

@@ -148,5 +148,17 @@ namespace MediaLibrary.Entities.Tests
                 Assert.Fail();
             }
         }
+
+        [TestMethod()]
+        public void NameIsTest()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void NameIs_PredicateTest()
+        {
+            Assert.Fail();
+        }
     }
 }

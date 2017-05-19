@@ -82,7 +82,7 @@ namespace MediaLibrary.Entities
             target.AddChild(source);
         }
 
-        public IEnumerable<INode> Descendants(Func<INode, bool> predicate)
+        public IEnumerable<INode> Descendants(Func<INode, bool> predicate = null)
         {
             return Nodes.SelectMany(s => s.DescendantsAndSelf(predicate));
         }

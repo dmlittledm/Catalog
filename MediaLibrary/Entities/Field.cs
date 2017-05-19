@@ -53,6 +53,24 @@ namespace MediaLibrary.Entities
             Value = value;
         }
 
+        public Func<IField, bool> NameIs(string name)
+        {
+            return NameIs(x => x == name);
+            // TODO: remove after tests
+            //return x => x.FieldType.Role == FieldRoles.Name && x.Value.ToString() == name;
+        }
+
+        public Func<IField, bool> NameIs(Func<string, bool> predicate)
+        {
+            // TODO: find how to easily combine expressions to use FieldRoleIs() here
+            return x => x.FieldType.Role == FieldRoles.Name && predicate(x.Value?.ToString());
+        }
+
+        public Func<IField, bool> FieldRoleIs(FieldRoles role)
+        {
+            return x => x.FieldType.Role == role;
+        }
+
         /// <summary> Проверить, что значение соответствует требованиям
         /// </summary>
         /// <param name="value"></param>

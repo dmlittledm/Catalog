@@ -65,6 +65,6 @@ namespace MediaLibrary.Interfaces
         /// </summary>
         /// <param name="predicate">фильтр</param>
         /// <returns></returns>
-        IEnumerable<INode> Descendants(Func<INode, bool> predicate);
+        IEnumerable<INode> Descendants(Func<INode, bool> predicate = null);
     }
 }

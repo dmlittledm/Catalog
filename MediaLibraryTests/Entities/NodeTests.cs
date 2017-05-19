@@ -74,7 +74,6 @@ namespace MediaLibrary.Entities.Tests
         }
 
 
-
-
+        // TODO: add Name property test
     }
 }
