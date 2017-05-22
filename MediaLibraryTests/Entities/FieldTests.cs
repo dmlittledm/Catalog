@@ -152,13 +152,24 @@ namespace MediaLibrary.Entities.Tests
         [TestMethod()]
         public void NameIsTest()
         {
-            Assert.Fail();
+            var node = TestsHelper.CreateNode("test node");
+            var field = new Field<string>(TestsHelper.FieldTypeFactory.Name, "test");
+            node.AddField(field);
+            var predicate = field.NameIs("test");
+
+
+
+            try
+            {
+                field.Update(55);
+
+                Assert.Fail();
+            }
+            catch
+            {
+                Assert.IsTrue(true);
+            }
         }
 
-        [TestMethod()]
-        public void NameIs_PredicateTest()
-        {
-            Assert.Fail();
-        }
     }
 }

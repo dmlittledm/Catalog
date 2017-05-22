@@ -1,0 +1,11 @@
+D:\Projects\Catalog\ToolBox\bin\Debug\ToolBox.dll.config
+D:\Projects\Catalog\ToolBox\bin\Debug\ToolBox.dll
+D:\Projects\Catalog\ToolBox\bin\Debug\ToolBox.pdb
+D:\Projects\Catalog\ToolBox\bin\Debug\EntityFramework.dll
+D:\Projects\Catalog\ToolBox\bin\Debug\EntityFramework.SqlServer.dll
+D:\Projects\Catalog\ToolBox\bin\Debug\Newtonsoft.Json.dll
+D:\Projects\Catalog\ToolBox\bin\Debug\EntityFramework.xml
+D:\Projects\Catalog\ToolBox\bin\Debug\EntityFramework.SqlServer.xml
+D:\Projects\Catalog\ToolBox\bin\Debug\Newtonsoft.Json.xml
+D:\Projects\Catalog\ToolBox\obj\Debug\ToolBox.dll
+D:\Projects\Catalog\ToolBox\obj\Debug\ToolBox.pdb

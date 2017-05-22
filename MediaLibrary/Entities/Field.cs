@@ -1,9 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using MediaLibrary.Annotations;
 using MediaLibrary.Infrastructure;
 using MediaLibrary.Interfaces;
+using ToolBox.Expressions;
 
 namespace MediaLibrary.Entities
 {
@@ -53,22 +55,24 @@ namespace MediaLibrary.Entities
             Value = value;
         }
 
-        public Func<IField, bool> NameIs(string name)
-        {
-            return NameIs(x => x == name);
-            // TODO: remove after tests
-            //return x => x.FieldType.Role == FieldRoles.Name && x.Value.ToString() == name;
-        }
 
-        public Func<IField, bool> NameIs(Func<string, bool> predicate)
+        // TODO: remove these fielters from interface and move methods to some helper-class with static methods
+        public Expression<Func<IField, bool>> NameIs(string name)
         {
             // TODO: find how to easily combine expressions to use FieldRoleIs() here
-            return x => x.FieldType.Role == FieldRoles.Name && predicate(x.Value?.ToString());
+            return Expression(x => x.FieldType.Role == FieldRoles.Name 
+                & x.Value == null ? x.Value.ToString() == name : name == null);
+            //return Expression(x => x.FieldRoleIs(FieldRoles.Name) & x.Value?.ToString() == name));
         }
 
-        public Func<IField, bool> FieldRoleIs(FieldRoles role)
+        public Expression<Func<IField, bool>> FieldRoleIs(FieldRoles role)
         {
-            return x => x.FieldType.Role == role;
+            return Expression(x => x.FieldType.Role == role);
+        }
+
+        private static Expression<Func<IField, bool>> Expression(Expression<Func<IField, bool>> predicate)
+        {
+            return new FilterExpression<IField>(predicate).AsExpression();
         }
 
         /// <summary> Проверить, что значение соответствует требованиям

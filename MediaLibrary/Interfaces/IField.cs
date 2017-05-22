@@ -32,15 +32,15 @@ namespace MediaLibrary.Interfaces
         /// <param name="name"></param>
         /// <returns></returns>
         /// <remarks>Checks if <see cref="FieldType"/> is <see cref="FieldRoles.Name"/> and compares <paramref name="name"/> with <see cref="Value"/></remarks>
-        Func<IField, bool> NameIs(string name);
+        Expression<Func<IField, bool>> NameIs(string name);
 
-        /// <summary> predicate to filter field by name 
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns></returns>
-        /// <remarks>Checks if <see cref="FieldType"/> is <see cref="FieldRoles.Name"/> and uses <paramref name="predicate"/> to check <see cref="Value"/></remarks>
-        Func<IField, bool> NameIs(Func<string, bool> predicate);
+        ///// <summary> predicate to filter field by name 
+        ///// </summary>
+        ///// <param name="predicate"></param>
+        ///// <returns></returns>
+        ///// <remarks>Checks if <see cref="FieldType"/> is <see cref="FieldRoles.Name"/> and uses <paramref name="predicate"/> to check <see cref="Value"/></remarks>
+        //Func<IField, bool> NameIs(Expression<Func<string, bool>> predicate);
 
-        Func<IField, bool> FieldRoleIs(FieldRoles role);
+        Expression<Func<IField, bool>> FieldRoleIs(FieldRoles role);
     }
 }
