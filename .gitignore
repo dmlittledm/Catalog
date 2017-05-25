@@ -41,23 +41,14 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
-Catalog/bin/Debug/Catalog.exe.config
-Catalog/bin/Debug/Catalog.vshost.exe
-Catalog/bin/Debug/Catalog.vshost.exe.config
-Catalog/bin/Debug/Catalog.vshost.exe.manifest
-Catalog/obj/Debug/Catalog.csproj.FileListAbsolute.txt
-Catalog/obj/Debug/DesignTimeResolveAssemblyReferences.cache
-Catalog/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
-Catalog/obj/Debug/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs
-Catalog/obj/Debug/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs
-Catalog/obj/Debug/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs
-/Catalog/bin/Debug
-/Catalog/obj/Debug
+Catalog/bin/Debug
+Catalog/obj/Debug
 /Data/bin/Debug
 /Data/obj/Debug
 /MediaLibrary/bin/Debug
 /MediaLibrary/obj/Debug
 /MediaLibraryTests/bin/Debug
-/ToolBox/obj/Debug/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs
-/ToolBox/obj/Debug/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs
+/MediaLibraryTests/obj/Debug
 /ToolBox/obj/Debug
+/ToolBox/bin/Debug
+/packages/EntityFramework.6.1.3

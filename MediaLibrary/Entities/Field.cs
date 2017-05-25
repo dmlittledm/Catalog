@@ -56,25 +56,6 @@ namespace MediaLibrary.Entities
         }
 
 
-        // TODO: remove these fielters from interface and move methods to some helper-class with static methods
-        public Expression<Func<IField, bool>> NameIs(string name)
-        {
-            // TODO: find how to easily combine expressions to use FieldRoleIs() here
-            return Expression(x => x.FieldType.Role == FieldRoles.Name 
-                & x.Value == null ? x.Value.ToString() == name : name == null);
-            //return Expression(x => x.FieldRoleIs(FieldRoles.Name) & x.Value?.ToString() == name));
-        }
-
-        public Expression<Func<IField, bool>> FieldRoleIs(FieldRoles role)
-        {
-            return Expression(x => x.FieldType.Role == role);
-        }
-
-        private static Expression<Func<IField, bool>> Expression(Expression<Func<IField, bool>> predicate)
-        {
-            return new FilterExpression<IField>(predicate).AsExpression();
-        }
-
         /// <summary> Проверить, что значение соответствует требованиям
         /// </summary>
         /// <param name="value"></param>

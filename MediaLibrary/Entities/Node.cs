@@ -22,7 +22,7 @@ namespace MediaLibrary.Entities
 
         public INode Root => Parent?.Root ?? this;
 
-        public string Name => Fields.FirstOrDefault(x => x.FieldType.Role == FieldRoles.Name)?.Value.ToString();
+        public string Name => Fields.FirstOrDefault(EntitiesHelper.FieldRoleIs(FieldRoles.Name))?.Value.ToString();
 
         public IEnumerable<INode> Descendants(Func<INode, bool> predicate = null)
         {
@@ -88,7 +88,7 @@ namespace MediaLibrary.Entities
                 return;
 
             ChildsInternal.Remove(node);
-            node.SetParent(null);
+            node.ClearParent();
         }
 
         internal IEnumerable<INode> GetDescendants(bool self, Func<INode, bool> predicate = null)
@@ -96,8 +96,7 @@ namespace MediaLibrary.Entities
             INode n = this;
             if (self)
             {
-                if(predicate == null || predicate(this)) yield return n; // TODO: check if this works right and gives other descendants
-                // m.b. just put this at the end
+                if(predicate == null || predicate(this)) yield return n; 
             }
 
             foreach (var node in Childs)

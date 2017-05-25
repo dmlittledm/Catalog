@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MediaLibrary.Infrastructure;
 
 namespace MediaLibrary.Entities.Tests
 {
@@ -149,15 +150,16 @@ namespace MediaLibrary.Entities.Tests
             }
         }
 
+        // TODO: перенести метод в другой файл, т.к. фильтры были перенесены в др. класс
         [TestMethod()]
         public void NameIsTest()
         {
             var node = TestsHelper.CreateNode("test node");
             var field = new Field<string>(TestsHelper.FieldTypeFactory.Name, "test");
             node.AddField(field);
-            var predicate = field.NameIs("test");
+            var predicate = EntitiesHelper.NameIs("test");
 
-
+            // TODO: finish it
 
             try
             {
