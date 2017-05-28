@@ -150,28 +150,5 @@ namespace MediaLibrary.Entities.Tests
             }
         }
 
-        // TODO: перенести метод в другой файл, т.к. фильтры были перенесены в др. класс
-        [TestMethod()]
-        public void NameIsTest()
-        {
-            var node = TestsHelper.CreateNode("test node");
-            var field = new Field<string>(TestsHelper.FieldTypeFactory.Name, "test");
-            node.AddField(field);
-            var predicate = EntitiesHelper.NameIs("test");
-
-            // TODO: finish it
-
-            try
-            {
-                field.Update(55);
-
-                Assert.Fail();
-            }
-            catch
-            {
-                Assert.IsTrue(true);
-            }
-        }
-
     }
 }

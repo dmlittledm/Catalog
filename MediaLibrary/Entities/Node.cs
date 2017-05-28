@@ -22,7 +22,7 @@ namespace MediaLibrary.Entities
 
         public INode Root => Parent?.Root ?? this;
 
-        public string Name => Fields.FirstOrDefault(EntitiesHelper.FieldRoleIs(FieldRoles.Name))?.Value.ToString();
+        public string Name => Fields.FirstOrDefault(EntitiesHelper.RoleIs(FieldRoles.Name))?.Value.ToString();
 
         public IEnumerable<INode> Descendants(Func<INode, bool> predicate = null)
         {

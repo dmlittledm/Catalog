@@ -69,6 +69,13 @@ namespace MediaLibrary.Entities.Tests
             return node;
         }
 
+        internal static INode CreateEmptyNode()
+        {
+            var node = new Node() as INode;
+
+            return node;
+        }
+
         internal static class FieldTypeFactory
         {
             public static readonly Guid ResourceId = Guid.Parse("E2687CD7-F69C-4B10-A97F-D42A118A01E1");

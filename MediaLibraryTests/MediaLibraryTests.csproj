@@ -56,6 +56,7 @@
     <Compile Include="Entities\LibraryTests.cs" />
     <Compile Include="Entities\TestsHelper.cs" />
     <Compile Include="Entities\NodeTests.cs" />
+    <Compile Include="Infrastructure\EntitiesHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
