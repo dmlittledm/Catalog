@@ -1,4 +1,6 @@
-﻿namespace MediaLibrary.Infrastructure
+﻿using System.Net.NetworkInformation;
+
+namespace MediaLibrary.Infrastructure
 {
     /// <summary> Class containing application messages 
     /// </summary>
@@ -36,6 +38,12 @@
         {
             public const string FieldTypeMismatch = "Несоответствие типа данных.";
             public const string MandatoryFieldValueCantBeNullOrEmpty = "Обязательное поле не может быть пустым.";
+            public const string CantChangeTemplateFieldName = "Нельзя изменить шаблонное название поля.";
+        }
+
+        public static class FieldType
+        {
+            public const string NameCantBeEmpty = "Название поля не может быть пустым.";
         }
     }
 }

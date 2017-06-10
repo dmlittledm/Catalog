@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using MediaLibrary.Interfaces;
 using System.Xml.Serialization;
+using MediaLibrary.Annotations;
+using MediaLibrary.Infrastructure;
 
 namespace MediaLibrary.Entities
 {
@@ -10,13 +13,39 @@ namespace MediaLibrary.Entities
     // Or use hardcoded field names instead of nameof(...) before change.
 
     [Serializable]
-    public class FieldType: IFieldType
+    public class FieldType: IFieldType, IReadOnlyFieldType
     {
+        private string _name;
+        private FieldDataTypes _fieldDataType;
+
+        [XmlElement(nameof(Id))]
+        public Guid? Id { get; set; }
+
         [XmlElement(nameof(Name))]
-        public string Name { get; set; }
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException(Messages.FieldType.NameCantBeEmpty, nameof(Name));
+
+                _name = value;
+            }
+        }
 
         [XmlElement(nameof(FieldDataType))]
-        public FieldDataTypes FieldDataType { get; set; }
+        public FieldDataTypes FieldDataType
+        {
+            get { return _fieldDataType; }
+            set
+            {
+                if (!Enum.IsDefined(typeof(FieldDataTypes), value))
+                    throw new InvalidEnumArgumentException(nameof(FieldDataType), (int)value, typeof(FieldDataTypes));
+
+                _fieldDataType = value; 
+            }
+        }
 
         [XmlElement(nameof(DefaultValue))]
         public object DefaultValue { get; set; }
@@ -47,6 +76,19 @@ namespace MediaLibrary.Entities
 
         [XmlElement(nameof(NullValueReplacement))]
         public object NullValueReplacement { get; set; }
+
+        public FieldType([NotNull] string name, FieldDataTypes dataType, Guid? id = null)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException(Messages.FieldType.NameCantBeEmpty, nameof(name));
+
+            if(!Enum.IsDefined(typeof(FieldDataTypes), dataType))
+                throw new InvalidEnumArgumentException(nameof(dataType), (int)dataType, typeof(FieldDataTypes));
+
+            Id = id ?? Guid.NewGuid();
+            Name = name;
+            FieldDataType = dataType;
+        }
 
         public Type GetDataType()
         {

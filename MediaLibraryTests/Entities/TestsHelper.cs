@@ -81,90 +81,49 @@ namespace MediaLibrary.Entities.Tests
             public static readonly Guid ResourceId = Guid.Parse("E2687CD7-F69C-4B10-A97F-D42A118A01E1");
             public static readonly Guid DirectoryId = Guid.Parse("EEF91876-A1A0-46D4-B182-55D83EFBA350");
 
-            public static IFieldType Name => new FieldType()
-            {
-                Name = "Название",
-                FieldDataType = FieldDataTypes.Text,
+            public static IFieldType Name => new FieldType("Название", FieldDataTypes.Text)
+            { 
                 SortOrder = 0,
                 IsMandatory = true,
                 NullValueReplacement = "Введите название",
                 Role = FieldRoles.Name
             };
 
-            public static IFieldType Description => new FieldType()
+            public static IFieldType Description => new FieldType("Описание", FieldDataTypes.Text)
             {
-                Name = "Описание",
-                FieldDataType = FieldDataTypes.Text,
                 SortOrder = 1,
                 NullValueReplacement = "Введите описание",
                 Role = FieldRoles.Description
             };
 
-            public static IFieldType Date => new FieldType()
+            public static IFieldType Date => new FieldType("Дата", FieldDataTypes.DateTime)
             {
-                Name = "Дата",
-                FieldDataType = FieldDataTypes.DateTime,
                 SortOrder = 2,
                 NullValueReplacement = "Введите дату",
             };
 
-            public static IFieldType Path => new FieldType()
-            {
-                Name = "Путь",
-                FieldDataType = FieldDataTypes.Path,
+            public static IFieldType Path => new FieldType("Путь", FieldDataTypes.Path)
+            { 
                 SortOrder = 3,
                 NullValueReplacement = "Введите путь",
                 Role = FieldRoles.Path
             };
 
-            public static IFieldType Link => new FieldType()
-            {
-                Name = "Ссылка на ресурс",
-                FieldDataType = FieldDataTypes.LinkToItem,
-            };
+            public static IFieldType Link => new FieldType("Ссылка на ресурс", FieldDataTypes.LinkToItem);
 
-            public static IFieldType HyperLink => new FieldType()
-            {
-                Name = "Гиперссылка",
-                FieldDataType = FieldDataTypes.Hyperlink,
-            };
+            public static IFieldType HyperLink => new FieldType("Гиперссылка", FieldDataTypes.Hyperlink);
 
-            public static IFieldType ItemOf => new FieldType()
-            {
-                Name = "Элемент справочника",
-                FieldDataType = FieldDataTypes.ItemOf,
-            };
+            public static IFieldType ItemOf => new FieldType("Элемент справочника", FieldDataTypes.ItemOf);
 
-            public static IFieldType SetOfItems => new FieldType()
-            {
-                Name = "Набор справочных значений",
-                FieldDataType = FieldDataTypes.SetOfItems,
-            };
+            public static IFieldType SetOfItems => new FieldType("Набор справочных значений", FieldDataTypes.SetOfItems);
 
-            public static IFieldType Image => new FieldType()
-            {
-                Name = "Изображение",
-                FieldDataType = FieldDataTypes.Image,
-            };
+            public static IFieldType Image => new FieldType("Изображение", FieldDataTypes.Image);
 
-            public static IFieldType Decimal => new FieldType()
-            {
-                Name = "Числовое значение",
-                FieldDataType = FieldDataTypes.Decimal,
-            };
+            public static IFieldType Decimal => new FieldType("Числовое значение", FieldDataTypes.Decimal);
 
-            public static IFieldType Notification => new FieldType()
-            {
-                Name = "Уведомление",
-                FieldDataType = FieldDataTypes.Notification,
-            };
+            public static IFieldType Notification => new FieldType("Уведомление", FieldDataTypes.Notification);
 
-            public static IFieldType Tags => new FieldType()
-            {
-                Name = "Теги",
-                FieldDataType = FieldDataTypes.Tags,
-            };
-
+            public static IFieldType Tags => new FieldType("Теги", FieldDataTypes.Tags);
         }
 
 

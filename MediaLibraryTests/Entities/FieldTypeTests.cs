@@ -18,7 +18,7 @@ namespace MediaLibrary.Entities.Tests
             {
                 var val = (FieldDataTypes) int.MaxValue;
 
-                var ft = new FieldType() {FieldDataType = val};
+                var ft = new FieldType("test field", val);
 
                 if(Enum.IsDefined(typeof(FieldDataTypes), val))
                     Assert.Fail("Such value is defined, renew the test!");
@@ -36,7 +36,7 @@ namespace MediaLibrary.Entities.Tests
         [TestMethod()]
         public void GetDataType_TextTest()
         {
-            var ft = new FieldType() { FieldDataType = FieldDataTypes.Text };
+            var ft = new FieldType("test field", FieldDataTypes.Text);
 
             Assert.IsTrue(ft.GetDataType() == typeof(string));
 
@@ -45,7 +45,7 @@ namespace MediaLibrary.Entities.Tests
         [TestMethod()]
         public void GetDataType_PathTest()
         {
-            var ft = new FieldType() { FieldDataType = FieldDataTypes.Path };
+            var ft = new FieldType("test field", FieldDataTypes.Path);
 
             Assert.IsTrue(ft.GetDataType() == typeof(string));
         }
@@ -53,7 +53,7 @@ namespace MediaLibrary.Entities.Tests
         [TestMethod()]
         public void GetDataType_DateTimeTest()
         {
-            var ft = new FieldType() { FieldDataType = FieldDataTypes.DateTime };
+            var ft = new FieldType("test field", FieldDataTypes.DateTime);
 
             Assert.IsTrue(ft.GetDataType() == typeof(DateTime));
         }
@@ -61,7 +61,7 @@ namespace MediaLibrary.Entities.Tests
         [TestMethod()]
         public void GetDataType_LinkToItemTest()
         {
-            var ft = new FieldType() { FieldDataType = FieldDataTypes.LinkToItem };
+            var ft = new FieldType("test field", FieldDataTypes.LinkToItem);
 
             Assert.IsTrue(ft.GetDataType() == typeof(Guid));
         }
@@ -69,7 +69,7 @@ namespace MediaLibrary.Entities.Tests
         [TestMethod()]
         public void GetDataType_HyperlinkTest()
         {
-            var ft = new FieldType() { FieldDataType = FieldDataTypes.Hyperlink };
+            var ft = new FieldType("test field", FieldDataTypes.Hyperlink);
 
             Assert.IsTrue(ft.GetDataType() == typeof(string));
         }
@@ -77,7 +77,7 @@ namespace MediaLibrary.Entities.Tests
         [TestMethod()]
         public void GetDataType_ImageTest()
         {
-            var ft = new FieldType() { FieldDataType = FieldDataTypes.Image };
+            var ft = new FieldType("test field", FieldDataTypes.Image);
 
             Assert.IsTrue(ft.GetDataType() == typeof(object));
         }
@@ -85,7 +85,7 @@ namespace MediaLibrary.Entities.Tests
         [TestMethod()]
         public void GetDataType_ItemOfTest()
         {
-            var ft = new FieldType() { FieldDataType = FieldDataTypes.ItemOf };
+            var ft = new FieldType("test field", FieldDataTypes.ItemOf);
 
             Assert.IsTrue(ft.GetDataType() == typeof(Tuple<Guid, Guid>));
         }
@@ -93,7 +93,7 @@ namespace MediaLibrary.Entities.Tests
         [TestMethod()]
         public void GetDataType_SetOfItemsTest()
         {
-            var ft = new FieldType() { FieldDataType = FieldDataTypes.SetOfItems };
+            var ft = new FieldType("test field", FieldDataTypes.SetOfItems);
 
             Assert.IsTrue(ft.GetDataType() == typeof(IEnumerable<Tuple<Guid, Guid>>));
         }
@@ -101,7 +101,7 @@ namespace MediaLibrary.Entities.Tests
         [TestMethod()]
         public void GetDataType_TagsTest()
         {
-            var ft = new FieldType() { FieldDataType = FieldDataTypes.Tags };
+            var ft = new FieldType("test field", FieldDataTypes.Tags);
 
             Assert.IsTrue(ft.GetDataType() == typeof(IEnumerable<string>));
         }
@@ -109,7 +109,7 @@ namespace MediaLibrary.Entities.Tests
         [TestMethod()]
         public void GetDataType_DecimalTest()
         {
-            var ft = new FieldType() { FieldDataType = FieldDataTypes.Decimal };
+            var ft = new FieldType("test field", FieldDataTypes.Decimal);
 
             Assert.IsTrue(ft.GetDataType() == typeof(decimal));
         }

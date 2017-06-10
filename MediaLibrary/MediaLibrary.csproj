@@ -52,6 +52,7 @@
     <Compile Include="Infrastructure\Messages.cs" />
     <Compile Include="Infrastructure\Tools.cs" />
     <Compile Include="Interfaces\IField.cs" />
+    <Compile Include="Interfaces\IReadOnlyFieldType.cs" />
     <Compile Include="Interfaces\IFieldType.cs" />
     <Compile Include="Interfaces\ILibrary.cs" />
     <Compile Include="Interfaces\ILink.cs" />

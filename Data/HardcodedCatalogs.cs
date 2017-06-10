@@ -9,33 +9,25 @@ namespace Data
     {
         public static IEnumerable<IFieldType> EnglishCourses = new List<IFieldType>()
         {
-            new FieldType
+            new FieldType("Name", FieldDataTypes.Text)
             {
-                Name = "Name",
                 Role = FieldRoles.Name,
-                FieldDataType = FieldDataTypes.Text,
                 IsMandatory = true,
                 SortOrder = 0,
-                IsValueDerived = true,
+                IsValueDerived = true
             },
-            new FieldType()
+            new FieldType("Path", FieldDataTypes.Path)
             {
-                Name = "Path",
                 Role = FieldRoles.Path,
-                FieldDataType = FieldDataTypes.Path,
                 SortOrder = 1,
-                IsValueDerived = true,
+                IsValueDerived = true
             },
-            new FieldType()
+            new FieldType("Image", FieldDataTypes.Image)
             {
-                Name = "Image",
                 Role = FieldRoles.Logo,
-                FieldDataType = FieldDataTypes.Image,
                 SortOrder = 2,
-                IsValueDerived = true,
+                IsValueDerived = true
             }
-
-
         };
     }
 }

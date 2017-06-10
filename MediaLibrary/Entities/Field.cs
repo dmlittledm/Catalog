@@ -12,6 +12,7 @@ namespace MediaLibrary.Entities
     public class Field<T> : IField 
     {
         private T _value;
+        private readonly IFieldType _fieldType;
 
         public object Value
         {
@@ -27,7 +28,10 @@ namespace MediaLibrary.Entities
             }
         }
 
-        public IFieldType FieldType { get; } // TODO: need to handle changes in this field to correlate with the Value
+        public IFieldType FieldType
+        {
+            get { return _fieldType; }
+        } // TODO: need to handle changes in this field to correlate with the Value
 
         public string Name => FieldType.Name;
 
@@ -42,7 +46,7 @@ namespace MediaLibrary.Entities
             if(typeof(T) != fieldType.GetDataType())
                 throw new ArgumentException(Messages.Field.FieldTypeMismatch, nameof(value));
 
-            FieldType = fieldType;
+            _fieldType = fieldType;
             CheckValue(value);
             _value = value;
         }
