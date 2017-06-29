@@ -54,8 +54,7 @@ namespace MediaLibrary.Entities
         {
             var node = Descendants(x => x.Id == id).FirstOrDefault();
 
-            if (node != null)
-                NodesInternal.Remove(node);
+            RemoveNode(node, removeLinks);
         }
 
         public void RemoveNode(INode node, bool removeLinks = true)
@@ -72,10 +71,19 @@ namespace MediaLibrary.Entities
                 RemoveLinks(Nodes, node, true);
         }
 
-        public void MoveTo(INode source, INode target)
+        public void MoveTo(INode target, INode source)
         {
             if (source == null || target == null)
                 throw new ArgumentNullException(source == null ? nameof(source) : nameof(target));
+
+            if(source.Parent == target)
+                return;
+
+            if(source == target)
+                throw new ArgumentException(Messages.Library.CantMoveNodeToItself);
+
+            if(source.Descendants(x => x.Id == target.Id).Any())
+                throw new ArgumentException(Messages.Library.CantMoveNodeToItsChild);
 
             RemoveNode(source, false);
 

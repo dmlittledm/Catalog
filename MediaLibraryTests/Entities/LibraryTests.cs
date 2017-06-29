@@ -1,25 +1,22 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MediaLibrary.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MediaLibrary.Interfaces;
+using NUnit.Framework;
 
 namespace MediaLibrary.Entities.Tests
 {
-    [TestClass()]
+    [TestFixture()]
     public class LibraryTests
     {
-        [TestMethod()]
+        [Test()]
         public void LibraryTest()
         {
             var lib = TestsHelper.CreateLibrary("Test lib");
             Assert.IsNotNull(lib);
         }
 
-        [TestMethod()]
+        [Test()]
         public void UpdateTest()
         {
             var lib = TestsHelper.CreateLibrary("Test lib");
@@ -33,7 +30,7 @@ namespace MediaLibrary.Entities.Tests
             Assert.IsTrue(lib.Description == newDesription);
         }
 
-        [TestMethod()]
+        [Test()]
         public void AddNodeTest()
         {
             var lib = TestsHelper.CreateLibrary("Test lib");
@@ -54,19 +51,15 @@ namespace MediaLibrary.Entities.Tests
             Assert.IsTrue(descendants.Any());
         }
 
-        [TestMethod()]
+        [Test()]
         public void RemoveNode_RemoveRootNodeTest()
         {
             var lib = TestsHelper.CreateLibrary("Test lib");
-            Func<INode, bool> predicate = x => x.Fields.Any(f => f.FieldType.Role == FieldRoles.Name && f.Value.ToString().EndsWith("5"));
-            var node = lib.Nodes.FirstOrDefault(predicate);
-            RemoveNode_Test(node, lib);
-        }
+            Func<INode, bool> filter = x => x.Fields.Any(f => f.FieldType.Role == FieldRoles.Name && f.Value.ToString().EndsWith("5"));
+            var node = lib.Nodes.FirstOrDefault(filter);
 
-        private static void RemoveNode_Test(INode node, ILibrary lib)
-        {
-            Func<INode, bool> predicate = x => x.Fields.Any(f => f.FieldType.Role == FieldRoles.Name && f.Value.ToString() == node.Name);
             Assert.IsNotNull(node);
+            Func<INode, bool> predicate = x => x.Fields.Any(f => f.FieldType.Role == FieldRoles.Name && f.Value.ToString() == node.Name);
 
             var cnt = lib.Nodes.Where(predicate).Count();
             var totalCnt = lib.Nodes.Count();
@@ -83,24 +76,99 @@ namespace MediaLibrary.Entities.Tests
             // TODO: also need to check if links are removed
         }
 
-        [TestMethod()]
+        [Test()]
         public void RemoveNode_RemoveByIdTest()
         {
-            Assert.Fail();
+            var lib = TestsHelper.CreateLibrary("Test lib");
+            Func<INode, bool> filter = x => x.Fields.Any(f => f.FieldType.Role == FieldRoles.Name && f.Value.ToString().EndsWith("5"));
+            var node = lib.Nodes.FirstOrDefault(filter);
+
+            Assert.IsNotNull(node);
+            Func<INode, bool> predicate = x => x.Fields.Any(f => f.FieldType.Role == FieldRoles.Name && f.Value.ToString() == node.Name);
+
+            var cnt = lib.Nodes.Where(predicate).Count();
+            var totalCnt = lib.Nodes.Count();
+
+            Assert.IsTrue(lib.Nodes.Any(predicate));
+
+            lib.RemoveNode(node.Id);
+
+            Assert.IsTrue(lib.Nodes.Count() == totalCnt - 1);
+            Assert.IsTrue(lib.Nodes.Where(predicate).Count() == cnt - 1);
+            Assert.IsTrue(node.Root == node);
+            Assert.IsFalse(lib.Nodes.Contains(node));
+
+            // TODO: also need to check if links are removed
         }
 
-        private void RemoveNode_Test()
-        {
-            
-        }
-
-        [TestMethod()]
+        [Test()]
         public void MoveToTest()
         {
-            Assert.Fail();
+            var lib = TestsHelper.CreateLibrary("Test lib");
+            Func<INode, bool> filter = x => x.Fields.Any(f => f.FieldType.Role == FieldRoles.Name && f.Value.ToString().EndsWith("5"));
+            var sourceNode = lib.Nodes.FirstOrDefault(filter);
+
+            Func<INode, bool> targetFilter = x => x.Fields.Any(f => f.FieldType.Role == FieldRoles.Name && f.Value.ToString().EndsWith("1"));
+            var targetNode = lib.Nodes.FirstOrDefault(targetFilter);
+
+            Assert.IsNotNull(sourceNode);
+            Assert.IsNotNull(targetNode);
+
+            lib.MoveTo(targetNode, sourceNode);
+
+            Assert.AreSame(targetNode, sourceNode.Parent);
+            Assert.IsTrue(targetNode.Childs.Contains(sourceNode));
         }
 
-        [TestMethod()]
+        [Test()]
+        public void MoveTo_ChildToParentTest()
+        {
+            var lib = TestsHelper.CreateLibrary("Test lib");
+            Func<INode, bool> filter = x => x.Fields.Any(f => f.FieldType.Role == FieldRoles.Name && f.Value.ToString().EndsWith("5"));
+            var parentNode = lib.Nodes.FirstOrDefault(filter);
+
+            Assert.IsNotNull(parentNode);
+
+            var childNode = parentNode.Childs.FirstOrDefault();
+
+            Assert.IsNotNull(childNode);
+
+            lib.MoveTo(parentNode, childNode);
+
+            Assert.AreSame(parentNode, childNode.Parent);
+            Assert.IsTrue(parentNode.Childs.Contains(childNode));
+        }
+
+        [Test()]
+        public void MoveTo_NullTest()
+        {
+            var lib = TestsHelper.CreateLibrary("Test lib");
+
+            var targetNode = lib.Nodes.FirstOrDefault();
+
+            Assert.Catch<ArgumentNullException>(() => lib.MoveTo(targetNode, null));
+            Assert.Catch<ArgumentNullException>(() => lib.MoveTo(null, targetNode));
+            Assert.Catch<ArgumentNullException>(() => lib.MoveTo(null, null));
+        }
+
+        [Test()]
+        public void MoveTo_ParentToChildTest()
+        {
+            var lib = TestsHelper.CreateLibrary("Test lib");
+
+            Func<INode, bool> filter = x => x.Fields.Any(f => f.FieldType.Role == FieldRoles.Name && f.Value.ToString().EndsWith("5"));
+            var parentNode = lib.Nodes.FirstOrDefault(filter);
+
+            Assert.IsNotNull(parentNode);
+
+            Assert.Catch<ArgumentException>(() => lib.MoveTo(parentNode, parentNode));
+
+            var childNode = parentNode.Childs.FirstOrDefault();
+
+            Assert.Catch<ArgumentException>(() => lib.MoveTo(childNode, parentNode));
+        }
+
+        [Test()]
         public void DescendantsTest()
         {
             var lib = TestsHelper.CreateLibrary("Test lib");
@@ -115,7 +183,7 @@ namespace MediaLibrary.Entities.Tests
             var libCount = lib.Descendants().Count();
             Assert.IsTrue(libCount == cnt);
         }
-        [TestMethod()]
+        [Test()]
         public void Descendants_FilterTest()
         {
             var lib = TestsHelper.CreateLibrary("Test lib");

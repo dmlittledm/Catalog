@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using MediaLibrary.Annotations;
 
 namespace MediaLibrary.Interfaces
 {
     /// <summary> Раздел 
     /// </summary>
-    public interface INode: IResource, INotifyPropertyChanged
+    public interface INode: IResource
     {
         /// <summary> Child nodes 
         /// </summary>

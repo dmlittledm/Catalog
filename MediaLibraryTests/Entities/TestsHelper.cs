@@ -1,22 +1,19 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MediaLibrary.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MediaLibrary.Interfaces;
+using NUnit.Framework;
 
 namespace MediaLibrary.Entities.Tests
 {
-    [TestClass()]
+    [TestFixture()]
     public class TestsHelper
     {
-        internal static ILibrary CreateLibrary(string name)
+        internal static ILibrary CreateLibrary(string name, int nodeCount = 10)
         {
             var lib = new Library(name, "Test generated library");
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < nodeCount; i++)
                 lib.AddNode(CreateNodeTree($"Root node {i}"));
 
             return lib;
@@ -46,7 +43,7 @@ namespace MediaLibrary.Entities.Tests
             yield return new Field<IEnumerable<string>>(FieldTypeFactory.Tags, new List<string>() {"Test", "RandomValues", "Level"});
         }
 
-        internal static INode CreateNodeTree(string name)
+        internal static INode CreateNodeTree(string name, int childCount = 5, int subChildCount = 2)
         {
             var node = CreateNode(name);
             for (int i = 0; i < 5; i++)

@@ -51,4 +51,5 @@ Catalog/obj/Debug
 /MediaLibraryTests/obj/Debug
 /ToolBox/obj/Debug
 /ToolBox/bin/Debug
-/packages/EntityFramework.6.1.3
+/packages
+

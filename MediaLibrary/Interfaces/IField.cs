@@ -25,4 +25,11 @@ namespace MediaLibrary.Interfaces
         /// <param name="value">значение</param>
         void Update(object value);
     }
+
+    public interface IField<T> : IField
+    {
+        new T Value { get; }
+
+        void Update(T value);
+    }
 }

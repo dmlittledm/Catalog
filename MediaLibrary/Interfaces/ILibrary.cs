@@ -57,9 +57,9 @@ namespace MediaLibrary.Interfaces
 
         /// <summary> Moves current node to another parent 
         /// </summary>
-        /// <param name="source">node to be moved</param>
         /// <param name="target">node that became parent for source node</param>
-        void MoveTo(INode source, INode target);
+        /// <param name="source">node to be moved</param>
+        void MoveTo(INode target, INode source);
 
         /// <summary>Получить список узлов-наследников 
         /// </summary>

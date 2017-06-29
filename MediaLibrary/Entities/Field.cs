@@ -9,12 +9,11 @@ using ToolBox.Expressions;
 
 namespace MediaLibrary.Entities
 {
-    public class Field<T> : IField 
+    public class Field<T> : IField<T> 
     {
         private T _value;
-        private readonly IFieldType _fieldType;
 
-        public object Value
+        public T Value
         {
             get { return _value; }
             private set
@@ -22,20 +21,22 @@ namespace MediaLibrary.Entities
                 if (_value.Equals(value))
                     return;
 
-                _value = (T)value;
+                _value = value;
                 IsDirty = true;
                 OnPropertyChanged(FieldType.Name);
             }
         }
 
-        public IFieldType FieldType
-        {
-            get { return _fieldType; }
-        } // TODO: need to handle changes in this field to correlate with the Value
+        public IFieldType FieldType { get; } // TODO: need to handle changes in this field to correlate with the Value
 
         public string Name => FieldType.Name;
+        object IField.Value => Value;
 
         public bool IsDirty { get; private set; }
+        public void Update(object value)
+        {
+            Update((T)value);
+        }
 
 
         public Field([NotNull] IFieldType fieldType, T value)
@@ -46,13 +47,13 @@ namespace MediaLibrary.Entities
             if(typeof(T) != fieldType.GetDataType())
                 throw new ArgumentException(Messages.Field.FieldTypeMismatch, nameof(value));
 
-            _fieldType = fieldType;
+            FieldType = fieldType;
             CheckValue(value);
             _value = value;
         }
 
 
-        public void Update(object value)
+        public void Update(T value)
         {
             CheckValue(value);
 
@@ -63,7 +64,7 @@ namespace MediaLibrary.Entities
         /// <summary> Проверить, что значение соответствует требованиям
         /// </summary>
         /// <param name="value"></param>
-        private void CheckValue(object value)
+        private void CheckValue(T value)
         {
             if (!FieldType.IsMandatory)
                 return;
@@ -72,7 +73,7 @@ namespace MediaLibrary.Entities
                 throw new ArgumentNullException(Messages.Field.MandatoryFieldValueCantBeNullOrEmpty);
 
             var type = FieldType.GetDataType();
-            if (string.IsNullOrEmpty(value.ToString()) && !type.IsValueType)
+            if (string.IsNullOrEmpty(value.ToString().Trim()) && !type.IsValueType)
                 throw new ArgumentNullException(Messages.Field.MandatoryFieldValueCantBeNullOrEmpty);
         }
 

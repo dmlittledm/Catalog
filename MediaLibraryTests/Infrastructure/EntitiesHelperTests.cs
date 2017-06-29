@@ -1,15 +1,15 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using MediaLibrary.Entities;
 using MediaLibrary.Entities.Tests;
+using NUnit.Framework;
 
 namespace MediaLibrary.Infrastructure.Tests
 {
-    [TestClass()]
+    [TestFixture()]
     public class EntitiesHelperTests
     {
-        [TestMethod()]
+        [Test()]
         public void FieldNameIsTest()
         {
             var node = TestsHelper.CreateEmptyNode();
@@ -31,7 +31,7 @@ namespace MediaLibrary.Infrastructure.Tests
             Assert.IsTrue(result.FirstOrDefault()?.FieldType.Role == FieldRoles.Name);
         }
 
-        [TestMethod()]
+        [Test()]
         public void FieldRoleIsTest()
         {
             var node = TestsHelper.CreateEmptyNode();
@@ -49,7 +49,7 @@ namespace MediaLibrary.Infrastructure.Tests
             Assert.IsTrue(result.All(x => x.FieldType.Role == FieldRoles.Name));
         }
 
-        [TestMethod()]
+        [Test()]
         public void FieldValueIsTest()
         {
             var node = TestsHelper.CreateEmptyNode();
@@ -91,8 +91,6 @@ namespace MediaLibrary.Infrastructure.Tests
             Assert.IsTrue(result.FirstOrDefault()?.Name == guidName);
             Assert.IsTrue(result.FirstOrDefault()?.FieldType.Role == FieldRoles.Default);
             Assert.IsTrue((Guid?)result.FirstOrDefault()?.Value == id);
-
-
         }
     }
 }

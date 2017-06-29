@@ -21,6 +21,8 @@ namespace MediaLibrary.Infrastructure
         public static class Library
         {
             public const string AlreadyContainsNodeWithIdXxx = "Коллекция уже содержит узел с Id {0}.";
+            public const string CantMoveNodeToItself = "Нельзя переместить узел в самого себя.";
+            public const string CantMoveNodeToItsChild = "Нельзя переместить узел в его же вложенный узел.";
         }
 
         public static class Node

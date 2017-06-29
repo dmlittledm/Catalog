@@ -1,41 +1,26 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MediaLibrary.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediaLibrary.Infrastructure;
+﻿using System;
+using NUnit.Framework;
 
 namespace MediaLibrary.Entities.Tests
 {
-    [TestClass()]
+    [TestFixture()]
     public class FieldTests
     {
-        [TestMethod()]
+        [Test()]
         public void CreateFieldSetTest()
         {
             var fields = TestsHelper.CreateFieldSet();
 
-            Assert.IsTrue(fields?.Any() ?? false);
+            Assert.IsNotEmpty(fields);
         }
 
-        [TestMethod()]
+        [Test()]
         public void Constructor_WrongDataTypeTest()
         {
-            try
-            {
-                var field = new Field<string>(TestsHelper.FieldTypeFactory.Decimal, "test");
-
-                Assert.Fail();
-            }
-            catch
-            {
-                Assert.IsTrue(true);
-            }
+            Assert.Catch<ArgumentException>(() => new Field<string>(TestsHelper.FieldTypeFactory.Decimal, "test"));
         }
 
-        [TestMethod()]
+        [Test()]
         public void Constructor_NullAndEmptyValuesTest()
         {
             var fieldType = TestsHelper.FieldTypeFactory.Name;
@@ -45,109 +30,61 @@ namespace MediaLibrary.Entities.Tests
             Assert.IsNotNull(field);
             Assert.IsNull(field.Value);
 
-            var fieldEmpty = new Field<string>(fieldType, "");
-            Assert.IsTrue(fieldEmpty?.Value?.ToString() == string.Empty);
-
-
+            var fieldEmpty = new Field<string>(fieldType, string.Empty);
+            Assert.AreEqual(fieldEmpty.Value, string.Empty);
         }
 
-        [TestMethod()]
+        [Test()]
         public void Constructor_NullFieldTypeTest()
         {
-            try
-            {
-                var field = new Field<string>(null, "test");
-
-                Assert.Fail();
-            }
-            catch (ArgumentNullException)
-            {
-                Assert.IsTrue(true);
-            }
-            catch
-            {
-                Assert.Fail();
-            }
+            Assert.Catch<ArgumentNullException>(() => new Field<string>(null, "test"));
         }
 
-        [TestMethod()]
+        [Test()]
         public void Constructor_EmptyValueInMandatoryFieldTest()
         {
-            try
-            {
-                var fieldType = TestsHelper.FieldTypeFactory.Name;
-                fieldType.IsMandatory = true;
+            var fieldType = TestsHelper.FieldTypeFactory.Name;
+            fieldType.IsMandatory = true;
 
-                var field = new Field<string>(fieldType, "");
-
-                Assert.Fail();
-            }
-            catch (ArgumentException)
-            {
-                Assert.IsTrue(true);
-            }
-            catch
-            {
-                Assert.Fail();
-            }
+            Assert.Catch<ArgumentException>(() => new Field<string>(fieldType, ""));
+            Assert.Catch<ArgumentException>(() => new Field<string>(fieldType, "  "));
         }
 
-        [TestMethod()]
+        [Test()]
         public void Update_ValueTest()
         {
             const string str = "new value";
             var field = new Field<string>(TestsHelper.FieldTypeFactory.Name, "test");
-            Assert.IsTrue(field.Value.ToString() != str);
+            Assert.IsTrue(field.Value != str);
 
             field.Update("new value");
-            Assert.IsTrue(field.Value.ToString() == str);
+            Assert.IsTrue(field.Value == str);
 
             var guid = Guid.NewGuid();
             var fieldGuid = new Field<Guid>(TestsHelper.FieldTypeFactory.Link, Guid.NewGuid());
-            Assert.IsTrue((Guid)fieldGuid.Value != guid);
+            Assert.IsTrue(fieldGuid.Value != guid);
 
             fieldGuid.Update(guid);
-            Assert.IsTrue((Guid)fieldGuid.Value == guid);
+            Assert.IsTrue(fieldGuid.Value == guid);
 
         }
 
-        [TestMethod()]
+        [Test()]
         public void Update_WrongTypeValueTest()
         {
             var field = new Field<string>(TestsHelper.FieldTypeFactory.Name, "test");
 
-            try
-            {
-                field.Update(55);
-
-                Assert.Fail();
-            }
-            catch
-            {
-                Assert.IsTrue(true);
-            }
+            Assert.Catch<InvalidCastException>(() => field.Update(55));
         }
 
-        [TestMethod()]
+        [Test()]
         public void Update_MandatoryToEmptyValueTest()
         {
             var fieldType = TestsHelper.FieldTypeFactory.Name;
             fieldType.IsMandatory = true;
 
             var field = new Field<string>(fieldType, "test");
-            try
-            {
-                field.Update(null);
-                Assert.Fail();
-            }
-            catch (ArgumentException)
-            {
-                Assert.IsTrue(true);
-            }
-            catch
-            {
-                Assert.Fail();
-            }
+            Assert.Catch<ArgumentNullException>(() => field.Update(null));
         }
 
     }

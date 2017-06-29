@@ -1,48 +1,34 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MediaLibrary.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace MediaLibrary.Entities.Tests
 {
-    [TestClass()]
+    [TestFixture()]
     public class FieldTypeTests
     {
-        [TestMethod()]
+        [Test()]
         public void GetDataType_ExceptionTest()
         {
-            try
-            {
-                var val = (FieldDataTypes) int.MaxValue;
+            var val = (FieldDataTypes) int.MaxValue;
 
-                var ft = new FieldType("test field", val);
+            var ft = new FieldType("test field", val);
 
-                if(Enum.IsDefined(typeof(FieldDataTypes), val))
-                    Assert.Fail("Such value is defined, renew the test!");
+            if(Enum.IsDefined(typeof(FieldDataTypes), val))
+                Assert.Fail("Such value is defined, renew the test!");
 
-                ft.GetDataType();
-
-                Assert.Fail();
-            }
-            catch
-            {
-                Assert.IsTrue(true);
-            }
+            Assert.Catch<ArgumentOutOfRangeException>(() => ft.GetDataType());
         }
 
-        [TestMethod()]
+        [Test()]
         public void GetDataType_TextTest()
         {
             var ft = new FieldType("test field", FieldDataTypes.Text);
 
             Assert.IsTrue(ft.GetDataType() == typeof(string));
-
         }
 
-        [TestMethod()]
+        [Test()]
         public void GetDataType_PathTest()
         {
             var ft = new FieldType("test field", FieldDataTypes.Path);
@@ -50,7 +36,7 @@ namespace MediaLibrary.Entities.Tests
             Assert.IsTrue(ft.GetDataType() == typeof(string));
         }
 
-        [TestMethod()]
+        [Test()]
         public void GetDataType_DateTimeTest()
         {
             var ft = new FieldType("test field", FieldDataTypes.DateTime);
@@ -58,7 +44,7 @@ namespace MediaLibrary.Entities.Tests
             Assert.IsTrue(ft.GetDataType() == typeof(DateTime));
         }
 
-        [TestMethod()]
+        [Test()]
         public void GetDataType_LinkToItemTest()
         {
             var ft = new FieldType("test field", FieldDataTypes.LinkToItem);
@@ -66,7 +52,7 @@ namespace MediaLibrary.Entities.Tests
             Assert.IsTrue(ft.GetDataType() == typeof(Guid));
         }
 
-        [TestMethod()]
+        [Test()]
         public void GetDataType_HyperlinkTest()
         {
             var ft = new FieldType("test field", FieldDataTypes.Hyperlink);
@@ -74,7 +60,7 @@ namespace MediaLibrary.Entities.Tests
             Assert.IsTrue(ft.GetDataType() == typeof(string));
         }
 
-        [TestMethod()]
+        [Test()]
         public void GetDataType_ImageTest()
         {
             var ft = new FieldType("test field", FieldDataTypes.Image);
@@ -82,7 +68,7 @@ namespace MediaLibrary.Entities.Tests
             Assert.IsTrue(ft.GetDataType() == typeof(object));
         }
 
-        [TestMethod()]
+        [Test()]
         public void GetDataType_ItemOfTest()
         {
             var ft = new FieldType("test field", FieldDataTypes.ItemOf);
@@ -90,7 +76,7 @@ namespace MediaLibrary.Entities.Tests
             Assert.IsTrue(ft.GetDataType() == typeof(Tuple<Guid, Guid>));
         }
 
-        [TestMethod()]
+        [Test()]
         public void GetDataType_SetOfItemsTest()
         {
             var ft = new FieldType("test field", FieldDataTypes.SetOfItems);
@@ -98,7 +84,7 @@ namespace MediaLibrary.Entities.Tests
             Assert.IsTrue(ft.GetDataType() == typeof(IEnumerable<Tuple<Guid, Guid>>));
         }
 
-        [TestMethod()]
+        [Test()]
         public void GetDataType_TagsTest()
         {
             var ft = new FieldType("test field", FieldDataTypes.Tags);
@@ -106,7 +92,7 @@ namespace MediaLibrary.Entities.Tests
             Assert.IsTrue(ft.GetDataType() == typeof(IEnumerable<string>));
         }
 
-        [TestMethod()]
+        [Test()]
         public void GetDataType_DecimalTest()
         {
             var ft = new FieldType("test field", FieldDataTypes.Decimal);

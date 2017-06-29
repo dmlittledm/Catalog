@@ -1,18 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MediaLibrary.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediaLibrary.Interfaces;
+﻿using MediaLibrary.Interfaces;
+using NUnit.Framework;
 
 namespace MediaLibrary.Entities.Tests
 {
-    [TestClass()]
+    [TestFixture()]
     public class NodeTests
     {
-        [TestMethod()]
+        [Test()]
         public void NodeConstructorTest()
         {
             var node = new Node() as INode;
@@ -21,44 +15,44 @@ namespace MediaLibrary.Entities.Tests
             // TODO: finish this
         }
 
-        [TestMethod()]
+        [Test()]
         public void DescendantsTest()
         {
             INode node = new Node();
             Assert.Fail();
         }
 
-        [TestMethod()]
+        [Test()]
         public void DescendantsAndSelfTest()
         {
             Assert.Fail();
         }
 
-        [TestMethod()]
+        [Test()]
         public void SetParentTest()
         {
             Assert.Fail();
         }
 
-        [TestMethod()]
+        [Test()]
         public void ClearParentTest()
         {
             Assert.Fail();
         }
 
-        [TestMethod()]
+        [Test()]
         public void AddChildTest()
         {
             Assert.Fail();
         }
 
-        [TestMethod()]
+        [Test()]
         public void RemoveChildTest()
         {
             Assert.Fail();
         }
 
-        [TestMethod()]
+        [Test()]
         public void RemoveChildTest1()
         {
             Assert.Fail();
