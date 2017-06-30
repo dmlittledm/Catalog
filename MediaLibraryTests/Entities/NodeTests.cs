@@ -1,4 +1,5 @@
-﻿using MediaLibrary.Interfaces;
+﻿using System;
+using MediaLibrary.Interfaces;
 using NUnit.Framework;
 
 namespace MediaLibrary.Entities.Tests
@@ -7,12 +8,12 @@ namespace MediaLibrary.Entities.Tests
     public class NodeTests
     {
         [Test()]
-        public void NodeConstructorTest()
+        public void NodeTest()
         {
-            var node = new Node() as INode;
-            node.AddFields(TestsHelper.CreateFieldSet());
-
-            // TODO: finish this
+            var node = (INode) new Node();
+            Assert.NotNull(node);
+            Assert.AreNotEqual(node.Id, Guid.Empty);
+            Assert.IsNull(node.Name);
         }
 
         [Test()]

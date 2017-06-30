@@ -23,10 +23,14 @@ namespace MediaLibrary.Infrastructure
             return Expression<IField>(x => x.Name == fieldName && x.Value.Equals(value));
         }
 
+        public static Func<IResource, bool> ResourseIdIs(Guid id)
+        {
+            return Expression<IResource>(x => x.Id == id);
+        }
+
         private static Func<T, bool> Expression<T>(Expression<Func<T, bool>> predicate) where T : class
         {
             return new FilterExpression<T>(predicate).AsExpression().Compile();
         }
-
     }
 }

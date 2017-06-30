@@ -24,11 +24,6 @@ namespace MediaLibrary.Entities
 
         public IEnumerable<IField> Fields => FieldsInternal;
 
-        public Expression<Func<IResource, bool>> ResourseIdIs(Guid id)
-        {
-            return x => x.Id == Id;
-        }
-
         protected IList<IField> FieldsInternal { get; set; }
 
         #region PropertyChanged

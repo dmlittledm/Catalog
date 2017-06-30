@@ -16,10 +16,9 @@ namespace MediaLibrary.Entities
     public class FieldType: IFieldType, IReadOnlyFieldType
     {
         private string _name;
-        private FieldDataTypes _fieldDataType;
 
         [XmlElement(nameof(Id))]
-        public Guid? Id { get; set; }
+        public Guid? Id { get; private set; }
 
         [XmlElement(nameof(Name))]
         public string Name
@@ -35,17 +34,7 @@ namespace MediaLibrary.Entities
         }
 
         [XmlElement(nameof(FieldDataType))]
-        public FieldDataTypes FieldDataType
-        {
-            get { return _fieldDataType; }
-            set
-            {
-                if (!Enum.IsDefined(typeof(FieldDataTypes), value))
-                    throw new InvalidEnumArgumentException(nameof(FieldDataType), (int)value, typeof(FieldDataTypes));
-
-                _fieldDataType = value; 
-            }
-        }
+        public FieldDataTypes FieldDataType { get; private set; }
 
         [XmlElement(nameof(DefaultValue))]
         public object DefaultValue { get; set; }

@@ -8,7 +8,7 @@ namespace MediaLibrary.Interfaces
     {
         /// <summary> Id типа поля 
         /// </summary>
-        Guid? Id { get; set; }
+        Guid? Id { get; }
 
         /// <summary> Название поля
         /// </summary>
@@ -16,7 +16,7 @@ namespace MediaLibrary.Interfaces
 
         /// <summary> Тип поля 
         /// </summary>
-        FieldDataTypes FieldDataType { get; set; }
+        FieldDataTypes FieldDataType { get; }
 
         /// <summary> Значение по умолчанию
         /// </summary>

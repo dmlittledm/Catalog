@@ -53,6 +53,7 @@
     <Compile Include="Entities\FieldTests.cs" />
     <Compile Include="Entities\FieldTypeTests.cs" />
     <Compile Include="Entities\LibraryTests.cs" />
+    <Compile Include="Entities\ResourceTests.cs" />
     <Compile Include="Entities\TestsHelper.cs" />
     <Compile Include="Entities\NodeTests.cs" />
     <Compile Include="Infrastructure\EntitiesHelperTests.cs" />

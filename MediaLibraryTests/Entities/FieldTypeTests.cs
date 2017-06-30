@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using MediaLibrary.Interfaces;
 using NUnit.Framework;
 
 namespace MediaLibrary.Entities.Tests
@@ -8,96 +10,132 @@ namespace MediaLibrary.Entities.Tests
     public class FieldTypeTests
     {
         [Test()]
-        public void GetDataType_ExceptionTest()
+        public void GetDataType_ConstructorWrongValueTest()
         {
-            var val = (FieldDataTypes) int.MaxValue;
+            const FieldDataTypes val = (FieldDataTypes) int.MinValue;
 
-            var ft = new FieldType("test field", val);
-
-            if(Enum.IsDefined(typeof(FieldDataTypes), val))
-                Assert.Fail("Such value is defined, renew the test!");
-
-            Assert.Catch<ArgumentOutOfRangeException>(() => ft.GetDataType());
+            Assert.Catch<InvalidEnumArgumentException>(() => new FieldType("test field", val));
         }
 
         [Test()]
         public void GetDataType_TextTest()
         {
-            var ft = new FieldType("test field", FieldDataTypes.Text);
+            var ft = TestsHelper.FieldTypeFactory.Text;
 
             Assert.IsTrue(ft.GetDataType() == typeof(string));
+            Assert.IsFalse(ft.IsMandatory);
+            Assert.IsTrue(ft.Role == FieldRoles.Default);
         }
+
+        [Test()]
+        public void GetDataType_NameTest()
+        {
+            var ft = TestsHelper.FieldTypeFactory.Name;
+
+            Assert.IsTrue(ft.GetDataType() == typeof(string));
+            Assert.IsTrue(ft.IsMandatory);
+            Assert.IsTrue(ft.Role == FieldRoles.Name);
+        }
+
+        [Test()]
+        public void GetDataType_DescriptionTest()
+        {
+            var ft = TestsHelper.FieldTypeFactory.Description;
+
+            Assert.IsTrue(ft.GetDataType() == typeof(string));
+            Assert.IsFalse(ft.IsMandatory);
+            Assert.IsTrue(ft.Role == FieldRoles.Description);
+        }
+
 
         [Test()]
         public void GetDataType_PathTest()
         {
-            var ft = new FieldType("test field", FieldDataTypes.Path);
+            var ft = TestsHelper.FieldTypeFactory.Path;
 
             Assert.IsTrue(ft.GetDataType() == typeof(string));
+            Assert.IsFalse(ft.IsMandatory);
+            Assert.IsTrue(ft.Role == FieldRoles.Path);
         }
 
         [Test()]
         public void GetDataType_DateTimeTest()
         {
-            var ft = new FieldType("test field", FieldDataTypes.DateTime);
+            var ft = TestsHelper.FieldTypeFactory.Date;
 
             Assert.IsTrue(ft.GetDataType() == typeof(DateTime));
+            Assert.IsFalse(ft.IsMandatory);
+            Assert.IsTrue(ft.Role == FieldRoles.Default);
         }
 
         [Test()]
         public void GetDataType_LinkToItemTest()
         {
-            var ft = new FieldType("test field", FieldDataTypes.LinkToItem);
+            var ft = TestsHelper.FieldTypeFactory.Link;
 
             Assert.IsTrue(ft.GetDataType() == typeof(Guid));
+            Assert.IsFalse(ft.IsMandatory);
+            Assert.IsTrue(ft.Role == FieldRoles.Default);
         }
 
         [Test()]
         public void GetDataType_HyperlinkTest()
         {
-            var ft = new FieldType("test field", FieldDataTypes.Hyperlink);
+            var ft = TestsHelper.FieldTypeFactory.HyperLink;
 
             Assert.IsTrue(ft.GetDataType() == typeof(string));
+            Assert.IsFalse(ft.IsMandatory);
+            Assert.IsTrue(ft.Role == FieldRoles.Default);
         }
 
         [Test()]
         public void GetDataType_ImageTest()
         {
-            var ft = new FieldType("test field", FieldDataTypes.Image);
+            var ft = TestsHelper.FieldTypeFactory.Image;
 
             Assert.IsTrue(ft.GetDataType() == typeof(object));
+            Assert.IsFalse(ft.IsMandatory);
+            Assert.IsTrue(ft.Role == FieldRoles.Default);
         }
 
         [Test()]
         public void GetDataType_ItemOfTest()
         {
-            var ft = new FieldType("test field", FieldDataTypes.ItemOf);
+            var ft = TestsHelper.FieldTypeFactory.ItemOf;
 
             Assert.IsTrue(ft.GetDataType() == typeof(Tuple<Guid, Guid>));
+            Assert.IsFalse(ft.IsMandatory);
+            Assert.IsTrue(ft.Role == FieldRoles.Default);
         }
 
         [Test()]
         public void GetDataType_SetOfItemsTest()
         {
-            var ft = new FieldType("test field", FieldDataTypes.SetOfItems);
+            var ft = TestsHelper.FieldTypeFactory.SetOfItems;
 
             Assert.IsTrue(ft.GetDataType() == typeof(IEnumerable<Tuple<Guid, Guid>>));
+            Assert.IsFalse(ft.IsMandatory);
+            Assert.IsTrue(ft.Role == FieldRoles.Default);
         }
 
         [Test()]
         public void GetDataType_TagsTest()
         {
-            var ft = new FieldType("test field", FieldDataTypes.Tags);
+            var ft = TestsHelper.FieldTypeFactory.Tags;
 
             Assert.IsTrue(ft.GetDataType() == typeof(IEnumerable<string>));
+            Assert.IsFalse(ft.IsMandatory);
+            Assert.IsTrue(ft.Role == FieldRoles.Default);
         }
 
         [Test()]
         public void GetDataType_DecimalTest()
         {
-            var ft = new FieldType("test field", FieldDataTypes.Decimal);
+            var ft = TestsHelper.FieldTypeFactory.Decimal;
 
             Assert.IsTrue(ft.GetDataType() == typeof(decimal));
+            Assert.IsFalse(ft.IsMandatory);
+            Assert.IsTrue(ft.Role == FieldRoles.Default);
         }
     }
 }

@@ -121,6 +121,8 @@ namespace MediaLibrary.Entities.Tests
             public static IFieldType Notification => new FieldType("Уведомление", FieldDataTypes.Notification);
 
             public static IFieldType Tags => new FieldType("Теги", FieldDataTypes.Tags);
+
+            public static IFieldType Text => new FieldType("Текст", FieldDataTypes.Text);
         }
 
 
